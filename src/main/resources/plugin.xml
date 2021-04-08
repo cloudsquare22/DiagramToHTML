@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+   <extension point="com.change_vision.astah.ui.actionSets">
+      <actionSet
+            label="%action_set_label"
+            visible="true"
+            id="jp.co.infitech.astah.plugin.DiagramToHTML.actionSet">
+         <menu
+               id="DiagramToHTML"
+               label="%menu_group"
+               path="tool/DiagramToHTML">
+         </menu>
+         <action
+			   label="%menu_label"
+               icon="icons/sample.gif"
+               class="jp.co.infitech.astah.plugin.TemplateAction"
+               tooltip="%menu_tooltip"
+               menubarPath="tool/DiagramToHTML/"
+               id="DiagramToHTML">
+         </action>
+     </actionSet>
+   </extension>
+</plugin>
