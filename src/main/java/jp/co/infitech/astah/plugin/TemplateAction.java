@@ -45,19 +45,32 @@ public class TemplateAction implements IPluginActionDelegate {
                 int selected = jFilechooser.showOpenDialog(null);
                 if(selected == JFileChooser.APPROVE_OPTION) {
                     outputDirectory = jFilechooser.getSelectedFile().getPath();
-                    iNamedElementList.forEach(ie -> {
-                        try {
-                            if(DiagramUtils.isDiagram(ie) == true) {
-                                ((IDiagram)ie).exportImage(outputDirectory, "png", 96);
+                    TextDialog textDialog =  new TextDialog("Exporting", window.getParent());
+                    window.getParent().setEnabled(false);
+                    Thread makeThread = new Thread() {
+                        public void run() {
+                            iNamedElementList.forEach(ie -> {
+                                try {
+                                    if(DiagramUtils.isDiagram(ie) == true) {
+                                        ((IDiagram)ie).exportImage(outputDirectory, "png", 96);
+                                    }
+                                }
+                                catch (Exception e) {
+                                    System.out.println(e.getMessage());
+                                }
+                            });
+                            try {
+                                makeHTML(iNamedElementList);
                             }
+                            catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            textDialog.setVisible(false);
+                            window.getParent().setEnabled(true);
+                            JOptionPane.showMessageDialog(window.getParent(), "Successfully exported.", "Message", JOptionPane.PLAIN_MESSAGE);
                         }
-                        catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                    });
-
-                    makeHTML(iNamedElementList);
-                    JOptionPane.showMessageDialog(window.getParent(), "Successfully exported.", "Message", JOptionPane.PLAIN_MESSAGE);
+                    };
+                    makeThread.start();
                 }
             }
             else {

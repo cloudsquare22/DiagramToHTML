@@ -12,7 +12,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>jp.co.infitech.astah.plugin</groupId>
   <artifactId>DiagramToHTML</artifactId>
-  <version>0.9.1</version>
+  <version>0.9.2</version>
   <packaging>jar</packaging>
   <name>%bundle.name</name>
   <description>%bundle.description</description>
